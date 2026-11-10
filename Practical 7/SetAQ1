@@ -1,0 +1,32 @@
+from flask import Flask, request, jsonify
+app = Flask(__name__)
+students = [
+    {
+        "id": 1,
+        "name": "Payal",
+        "course": "Python"
+    }
+]
+# GET API
+@app.route('/student', methods=['GET'])
+def get_student():
+    return jsonify(students)
+# POST API
+@app.route('/addstudent', methods=['POST'])
+def add_student():
+    data = request.get_json()
+
+    student = {
+        "id": len(students) + 1,
+        "name": data["name"],
+        "course": data["course"]
+    }
+    students.append(student)
+    return jsonify({
+        "message": "Student added successfully",
+        "student": student
+    }), 201
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

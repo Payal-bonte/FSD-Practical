@@ -1,0 +1,27 @@
+# Q2. Create a Flask application displaying system information using routes.
+
+from flask import Flask
+import platform
+import socket
+import sys
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to System Information"
+
+@app.route('/os')
+def os_info():
+    return "Operating System: " + platform.system()
+
+@app.route('/name')
+def computer():
+    return "Computer Name: " + socket.gethostname()
+
+@app.route('/python')
+def python():
+    return "Python Version: " + sys.version
+
+if __name__ == '__main__':
+    app.run(debug=True)

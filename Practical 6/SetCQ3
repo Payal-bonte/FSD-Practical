@@ -1,0 +1,63 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+students = [
+    {"name": "Payal", "marks": 85},
+    {"name": "Shreya", "marks": 92},
+    {"name": "Apeksha", "marks": 78},
+    {"name": "Sneha", "marks": 88}
+]
+
+
+@app.route("/")
+def student_marks():
+
+    marks = [student["marks"] for student in students]
+
+    total = sum(marks)
+    average = total / len(marks)
+    highest = max(marks)
+    lowest = min(marks)
+
+    result = """
+    <html>
+    <head>
+        <title>Student Marks</title>
+    </head>
+    <body>
+        <h1>Student Marks Report</h1>
+
+        <table border="1" cellpadding="10">
+            <tr>
+                <th>Student Name</th>
+                <th>Marks</th>
+            </tr>
+    """
+
+    for student in students:
+        result += f"""
+            <tr>
+                <td>{student['name']}</td>
+                <td>{student['marks']}</td>
+            </tr>
+        """
+
+    result += f"""
+        </table>
+
+        <h2>Marks Summary</h2>
+        <p>Total Marks: {total}</p>
+        <p>Average Marks: {average:.2f}</p>
+        <p>Highest Marks: {highest}</p>
+        <p>Lowest Marks: {lowest}</p>
+
+    </body>
+    </html>
+    """
+
+    return result
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Login</title>
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>User Login</h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('login') }}">
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Enter Your Email"
+            required
+        >
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Enter Your Password"
+            required
+        >
+
+        <button type="submit">Login</button>
+
+    </form>
+
+    <p>
+        Don't have an account?
+        <a href="{{ url_for('register') }}">Register Here</a>
+    </p>
+
+    <a href="{{ url_for('home') }}">Back to Home</a>
+
+</div>
+
+</body>
+</html>

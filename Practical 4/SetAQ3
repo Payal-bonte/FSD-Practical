@@ -1,0 +1,22 @@
+# Create a dynamic route that accepts a course name and displays course information.
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to Course Information"
+
+@app.route('/course/<name>')
+def course(name):
+    courses = {
+        'python': 'Python is a programming language.',
+        'java': 'Java is an object-oriented language.',
+        'html': 'HTML is used to create web pages.'
+    }
+
+    return courses.get(name.lower(), "Course Not Found")
+
+if __name__ == '__main__':
+    app.run(debug=True)
